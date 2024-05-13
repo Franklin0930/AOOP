@@ -11,7 +11,7 @@ public class NumberleModel extends Observable implements INumberleModel {
     private boolean gameWon;
     private int[] inputColors;
     private HashMap<Character,Integer> keyboardColors;
-    private boolean[] flags = {true,false,true};
+    private boolean[] flags = {true,true,true};
     public boolean invariant() {
         return (remainingAttempts >= 0 && remainingAttempts <= MAX_ATTEMPTS) &&
                 (targetNumber != null) &&
@@ -76,8 +76,8 @@ public class NumberleModel extends Observable implements INumberleModel {
 
     @Override
     public void processInput(String input) {
+        assert invariant();
         if (input == null || input.length() != 7) {
-            assert invariant();
             setChanged();
             notifyObservers("Invalid Input");
             return;
@@ -138,6 +138,7 @@ public class NumberleModel extends Observable implements INumberleModel {
             setChanged();
             notifyObservers("Try Again");
         }
+        assert invariant();
     }
 
 
